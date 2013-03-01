@@ -114,7 +114,7 @@
 		max = max(data);
 		colPosition = 0; // for printing colors on simple bar graph
 
- 		for(var val in data){
+ 		$.each(data, function(val, valData){
  			
  			valueData = data[val][0];
  			if (valueData instanceof Array) 
@@ -203,12 +203,12 @@
  				$('#graphFieldBar'+unique).css({'height': fieldHeight});
  			}
  			
- 		}
+ 		});
  			
  		//creating legend array from legends param
- 		for(var l in arr.legends){
+ 		$.each(arr.legends, function(l, lData){
  			leg.push([ arr.colors[l], arr.legends[l], el.id, l ]);
- 		}
+ 		});
  		
  		createLegend(leg); // create legend from array
  		
