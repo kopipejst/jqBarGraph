@@ -180,13 +180,13 @@
  						sv = arr.prefix+valueData[i]+arr.postfix;
  						fs = 12; // font-size is 0 if showValues = false
  					}
- 					o = "<div class='subBars"+el.id+"' style='height:"+heig+"px; background-color: "+arr.colors[i]+"; left:"+wid*i+"px; color:"+arr.showValuesColor+"; font-size:"+fs+"px' >"+sv+"</div>";
+ 					o = "<div class='subBars"+el.id+"' style='width:"+wid+"px;height:"+heig+"px; background-color: "+arr.colors[i]+"; left:"+wid*i+"px; color:"+arr.showValuesColor+"; font-size:"+fs+"px' >"+sv+"</div>";
  					$('#graphFieldBar'+unique).prepend(o);
  				}
  			}
  			
  			if(arr.type=='multi')
- 				$('.subBars'+el.id).css({ 'width': wid, 'position': 'absolute', 'bottom': 0 });
+ 				$('.subBars'+el.id).css({ 'position': 'absolute', 'bottom': 0 });
  
  			//position of bars
  			if(arr.position == 'bottom') $('.graphField'+el.id).css('bottom',0);
