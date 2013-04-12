@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>jqBarGraph demo page</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script src="jqBarGraph.js"></script>
+
+	<style>
+		.graph {
+			width: 400px;
+			height: 250px;
+		}
+	</style>
+</head>
+<body>
+	
+	<div id="simpleGraph"></div>
+
+	<div id="multiGraph"></div>
+
+	<div id="stackedGraph"></div>
+
+<script>
+graphResolutionByYear = new Array(
+		[[14,54,26],'2007'],
+		[[8,48,38],'2008'],
+		[[4,36,57],'2009']
+	);
+
+stackedByYear = new Array(
+		[[3,6.4,2],'2006'],
+		[[3.4,8,2.9],'2007'],
+		[[4.1,18,2.64],'2008'],
+		[[4.5,22,3.32],'2009']
+	);
+
+graphByMonth = new Array(
+		[4203,'Jan'],
+		[5015,'Feb'],
+		[5503,'Mar'],
+		[4983,'Apr'],
+		[5352,'May'],
+		[5870,'Jun']	
+	);
+
+
+$("#simpleGraph").jqBarGraph({
+	data: graphByMonth,
+	width: 500,
+	colors: ['#122A47','#1B3E69'],
+	color: '#1A2944',
+	barSpace: 5,
+	title: '<h3>Number of visitors per month<br /><small>simple bar graph</small></h3>'
+});
+
+$("#multiGraph").jqBarGraph({
+	data: graphResolutionByYear,
+	colors: ['#3D0017','#6B0E1D','#AB2522'],
+	legends: ['800x600','1024x768','Higher'],
+	legend: true,
+	width: 500,
+	color: '#ffffff',
+	type: 'multi',
+	postfix: '%',
+	title: '<h3>Browser Display Statistics <br /><small>multi bar graph</small></h3>'
+});
+
+
+$("#stackedGraph").jqBarGraph({
+	data: stackedByYear,
+	colors: ['#242424','#437346','#97D95C'],
+	legends: ['ads','leads','google ads'],
+	legend: true,
+	width: 500,
+	prefix: '$',
+	postfix: 'k',
+	title: '<h3>Total revenue by year <br /><small>stacked bar graph</small></h3>'
+});
+
+</script>
+
+
+</body>
+</html>
