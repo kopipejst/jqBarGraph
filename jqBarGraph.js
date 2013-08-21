@@ -29,6 +29,7 @@
  * @param type: false // for multi array data default graph type is stacked, you can change to 'multi' for multi bar type
  * @param showValues: true // you can use this for multi and stacked type and it will show values of every bar part
  * @param showValuesColor: '#fff' // color of font for values 
+ * @param valueStyle: null // a function which receives the value and returns whatever string it wants e.g. 1000 -> 1,000
 
  * @example  $('#divForGraph').jqBarGraph({ data: arrayOfData });  
   
@@ -51,6 +52,7 @@
             position: 'bottom', // or 'top' doesn't work for multi type
             prefix: '',
             postfix: '',
+            valueStyle: null,
             animate: true,
             speed: 1.5,
             legendWidth: 100,
@@ -149,6 +151,8 @@
                 legend = '',
                 prefix = arr.prefix,
                 postfix = arr.postfix,
+                valueStyle = arr.valueStyle,
+                styledValue = '',
                 space = arr.barSpace, //space between bars
                 legendWidth = arr.legend ? arr.legendWidth : 0, //width of legend box
                 fieldWidth = ($(el).width() - legendWidth) / data.length, //width of bar
@@ -187,6 +191,12 @@
                 } else {
                     value = valueData;
                 }
+                
+                styledValue = value;
+                
+                if ( valueStyle != null ) {
+                    styledValue = valueStyle( value );
+                }
 
                 lbl = data[val][1];
                 color = data[val][2];
@@ -214,7 +224,7 @@
                 }
 
                 out = "<div class='graphField" + el.id + "' id='graphField" + unique + "' style='position: absolute'>";
-                out += "<div class='graphValue" + el.id + "' id='graphValue" + unique + "'>" + prefix + value + postfix + "</div>";
+                out += "<div class='graphValue" + el.id + "' id='graphValue" + unique + "'>" + prefix + styledValue + postfix + "</div>";
 
                 out += "<div class='graphBar" + el.id + "' id='graphFieldBar" + unique + "' style='background-color:" + color + ";position: relative; overflow: hidden;'></div>";
 
