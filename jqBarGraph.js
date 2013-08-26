@@ -194,7 +194,7 @@
                 
                 styledValue = value;
                 
-                if ( typeOf( valueStyle ) === function ) {
+                if ( typeOf( valueStyle ) === 'function' ) {
                     styledValue = valueStyle( value );
                 }
 
