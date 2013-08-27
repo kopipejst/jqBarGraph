@@ -49,5 +49,6 @@ The code above is enough to display your data as bar graph. But if you want to m
 	type: false, // for multi array data default graph type is stacked, you can change to 'multi' for multi bar type
 	showValues: true, // you can use this for multi and stacked type and it will show values of every bar part
 	showValuesColor: '#fff' // color of font for values
+	valueStyle: null // a function which receives the value and returns whatever string it wants e.g. 1000 -> 1,000
 
 More info at: <a href="http://www.workshop.rs/jqbargraph/">WORKSHOP</a>
