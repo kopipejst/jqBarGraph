@@ -41,9 +41,8 @@ graphByMonth = new Array(
 		[5503,'Mar'],
 		[4983,'Apr'],
 		[5352,'May'],
-		[5870,'Jun']	
+		[5870,'Jun']
 	);
-
 
 $("#simpleGraph").jqBarGraph({
 	data: graphByMonth,
@@ -51,7 +50,10 @@ $("#simpleGraph").jqBarGraph({
 	colors: ['#122A47','#1B3E69'],
 	color: '#1A2944',
 	barSpace: 5,
-	title: '<h3>Number of visitors per month<br /><small>simple bar graph</small></h3>'
+	title: '<h3>Number of visitors per month<br /><small>simple bar graph</small></h3>',
+	valueStyle: function (val) {
+		return val + ',00';
+	}
 });
 
 $("#multiGraph").jqBarGraph({
@@ -65,7 +67,6 @@ $("#multiGraph").jqBarGraph({
 	postfix: '%',
 	title: '<h3>Browser Display Statistics <br /><small>multi bar graph</small></h3>'
 });
-
 
 $("#stackedGraph").jqBarGraph({
 	data: stackedByYear,
