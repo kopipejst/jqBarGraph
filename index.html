@@ -37,23 +37,23 @@ stackedByYear = new Array(
 	);
 
 graphByMonth = new Array(
-		[4203,'Jan'],
-		[5015,'Feb'],
-		[5503,'Mar'],
-		[4983,'Apr'],
-		[5352,'May'],
-		[5870,'Jun']
+		[{ value: 4203, count: 12 },'Jan'],
+		[{ value: 5015, count: 14 },'Feb'],
+		[{ value: 5503, count: 5 },'Mar'],
+		[{ value: 4983, count: 6 },'Apr'],
+		[{ value: 5352, count: 19 },'May'],
+		[{ value: 5870, count: 21 },'Jun']
 	);
 
 $("#simpleGraph").jqBarGraph({
 	data: graphByMonth,
-	width: 500,
+	width: 700,
 	colors: ['#122A47','#1B3E69'],
 	color: '#1A2944',
 	barSpace: 5,
 	title: '<h3>Number of visitors per month<br /><small>simple bar graph</small></h3>',
-	valueStyle: function (val) {
-		return val + ',00';
+	valueStyle: function (val, object) {
+		return val + ',00' + ' (' + object.count + ')';
 	}
 });
 

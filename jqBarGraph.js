@@ -158,7 +158,7 @@
                     fieldWidth = ($(el).width() - legendWidth) / data.length, //width of bar
                     totalHeight = $(el).height(), //total height of graph box
                     leg = [], //legends array
-                    maximum = max(data), //max value in data, I use this to calculate height of bar
+                    maximum = -Infinity,
                     colPosition = 0, // for printing colors on simple bar graph
                     val,
                     valueData,
@@ -188,14 +188,28 @@
                     valueData = data[val][0];
                     if (valueData instanceof Array) {
                         value = sum(valueData);
+                    } else if (typeof valueData === 'object') {
+                        value = valueData.value
+                        if(value instanceof Array) {
+                            value = sum(value);
+                        }
                     } else {
                         value = valueData;
                     }
 
+                    if (value > maximum) {
+                        maximum = value;
+                    }
+                    
                     styledValue = value;
 
                     if (typeof(valueStyle) === 'function') {
-                        styledValue = valueStyle(value);
+                        if(typeof valueData === 'object' && !(valueData instanceof Array)) {
+                            styledValue = valueStyle(value, valueData);
+                        }
+                        else {
+                            styledValue = valueStyle(value);
+                        }
                     }
 
                     lbl = data[val][1];
@@ -246,29 +260,31 @@
                         'margin-left': space
                     });
 
+                    if (!(valueData instanceof Array)) {
+                        valueData = valueData.value;
+                    }
+
+
                     // multi array
-                    if (valueData instanceof Array) {
+                    if (arr.type === 'multi') {
+                        maxe = maxMulti(data);
+                        totalHeightBar = fieldHeight = totalHeight - $('.graphLabel' + el.id).height();
+                        $('.graphValue' + el.id).remove();
+                    } else {
+                        maxe = maximum;
+                    }
 
-                        if (arr.type === 'multi') {
-                            maxe = maxMulti(data);
-                            totalHeightBar = fieldHeight = totalHeight - $('.graphLabel' + el.id).height();
-                            $('.graphValue' + el.id).remove();
-                        } else {
-                            maxe = maximum;
+                    for (i in valueData) {
+                        heig = totalHeightBar * valueData[i] / maxe;
+                        wid = parseInt((fieldWidth - space) / valueData.length);
+                        sv = ''; // show values
+                        fs = 0; // font size
+                        if (arr.showValues) {
+                            sv = arr.prefix + valueData[i] + arr.postfix;
+                            fs = 12; // font-size is 0 if showValues = false
                         }
-
-                        for (i in valueData) {
-                            heig = totalHeightBar * valueData[i] / maxe;
-                            wid = parseInt((fieldWidth - space) / valueData.length);
-                            sv = ''; // show values
-                            fs = 0; // font size
-                            if (arr.showValues) {
-                                sv = arr.prefix + valueData[i] + arr.postfix;
-                                fs = 12; // font-size is 0 if showValues = false
-                            }
-                            o = "<div class='subBars" + el.id + "' style='height:" + heig + "px; background-color: " + arr.colors[i] + "; left:" + wid * i + "px; color:" + arr.showValuesColor + "; font-size:" + fs + "px' >" + sv + "</div>";
-                            $('#graphFieldBar' + unique).prepend(o);
-                        }
+                        o = "<div class='subBars" + el.id + "' style='height:" + heig + "px; background-color: " + arr.colors[i] + "; left:" + wid * i + "px; color:" + arr.showValuesColor + "; font-size:" + fs + "px' >" + sv + "</div>";
+                        $('#graphFieldBar' + unique).prepend(o);
                     }
 
                     if (arr.type === 'multi') {
